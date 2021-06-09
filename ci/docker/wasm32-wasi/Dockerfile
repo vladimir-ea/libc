@@ -20,12 +20,13 @@ RUN git clone https://github.com/WebAssembly/wasi-libc && \
 RUN apt-get install -y --no-install-recommends llvm
 RUN make -C wasi-libc install -j $(nproc) INSTALL_DIR=/wasi-libc
 
-RUN curl -L https://github.com/bytecodealliance/wasmtime/releases/download/dev/wasmtime-dev-x86_64-linux.tar.xz | \
+RUN curl -L https://github.com/bytecodealliance/wasmtime/releases/download/v0.28.0/wasmtime-v0.28.0-x86_64-linux.tar.xz | \
   tar xJf -
-ENV PATH=$PATH:/wasmtime-dev-x86_64-linux
+ENV PATH=$PATH:/wasmtime-v0.28.0-x86_64-linux
 COPY docker/wasm32-wasi/clang.sh /wasi-libc/bin/clang
 
 RUN apt-get install -y --no-install-recommends lld
+RUN ln -s /usr/bin/wasm-ld-10 /usr/bin/wasm-ld
 ENV PATH=$PATH:/usr/lib/llvm-9/bin
 
 # Of note here is our clang wrapper which just executes a normal clang
@@ -36,4 +37,4 @@ ENV CARGO_TARGET_WASM32_WASI_RUNNER=wasmtime \
   CARGO_TARGET_WASM32_WASI_LINKER=/wasi-libc/bin/clang \
   CC_wasm32_wasi=/wasi-libc/bin/clang \
   PATH=$PATH:/rust/bin \
-  RUSTFLAGS=-Ctarget-feature=-crt-static
+  RUSTFLAGS='-Ctarget-feature=-crt-static -Clink-args=-Wl,-v'
