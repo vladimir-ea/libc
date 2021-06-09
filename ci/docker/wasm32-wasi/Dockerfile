@@ -37,4 +37,4 @@ ENV CARGO_TARGET_WASM32_WASI_RUNNER=wasmtime \
   CARGO_TARGET_WASM32_WASI_LINKER=/wasi-libc/bin/clang \
   CC_wasm32_wasi=/wasi-libc/bin/clang \
   PATH=$PATH:/rust/bin \
-  RUSTFLAGS=-Ctarget-feature=-crt-static
+  RUSTFLAGS='-Ctarget-feature=-crt-static -Clink-args=-Wl,-v'
