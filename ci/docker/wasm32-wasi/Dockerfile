@@ -26,6 +26,7 @@ ENV PATH=$PATH:/wasmtime-dev-x86_64-linux
 COPY docker/wasm32-wasi/clang.sh /wasi-libc/bin/clang
 
 RUN apt-get install -y --no-install-recommends lld
+RUN ln -s /usr/bin/wasm-ld-10 /usr/bin/wasm-ld
 ENV PATH=$PATH:/usr/lib/llvm-9/bin
 
 # Of note here is our clang wrapper which just executes a normal clang
