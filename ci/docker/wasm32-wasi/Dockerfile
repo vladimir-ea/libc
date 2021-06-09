@@ -20,9 +20,9 @@ RUN git clone https://github.com/WebAssembly/wasi-libc && \
 RUN apt-get install -y --no-install-recommends llvm
 RUN make -C wasi-libc install -j $(nproc) INSTALL_DIR=/wasi-libc
 
-RUN curl -L https://github.com/bytecodealliance/wasmtime/releases/download/dev/wasmtime-dev-x86_64-linux.tar.xz | \
+RUN curl -L https://github.com/bytecodealliance/wasmtime/releases/download/v0.28.0/wasmtime-v0.28.0-x86_64-linux.tar.xz | \
   tar xJf -
-ENV PATH=$PATH:/wasmtime-dev-x86_64-linux
+ENV PATH=$PATH:/wasmtime-v0.28.0-x86_64-linux
 COPY docker/wasm32-wasi/clang.sh /wasi-libc/bin/clang
 
 RUN apt-get install -y --no-install-recommends lld
