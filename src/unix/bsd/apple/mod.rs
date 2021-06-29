@@ -4140,7 +4140,7 @@ extern "C" {
 }
 
 cfg_if! {
-    if #[cfg(any(target_arch = "arm", target_arch = "x86", target_os = "watchos"))] {
+    if #[cfg(any(target_arch = "arm", target_arch = "x86", target_pointer_width = "32"))] {
         mod b32;
         pub use self::b32::*;
     } else if #[cfg(any(target_arch = "x86_64", target_arch = "aarch64"))] {
