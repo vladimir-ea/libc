@@ -1172,9 +1172,9 @@ s_no_extra_traits! {
         pub ifi_noproto: u64,
         pub ifi_recvtiming: u32,
         pub ifi_xmittiming: u32,
-        #[cfg(any(target_arch = "arm", target_arch = "x86"))]
+        #[cfg(any(target_arch = "arm", target_arch = "x86", target_pointer_width = "32"))]
         pub ifi_lastchange: ::timeval,
-        #[cfg(not(any(target_arch = "arm", target_arch = "x86")))]
+        #[cfg(not(any(target_arch = "arm", target_arch = "x86", target_pointer_width = "32")))]
         pub ifi_lastchange: timeval32,
     }
 
